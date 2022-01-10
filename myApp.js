@@ -16,8 +16,8 @@ let Pet = mongoose.model("Pet", petSchema);
 //Pet.createCollection();
 
 const createAndSavePerson = (done) => {
-  var cat = new Pet({name: "Marsik",
-                            age: 1,
+  var cat = new Pet({name: "Pushok",
+                            age: 2,
                             favoriteFoods: ["viskas","gourmet"]});
   cat.save(function(err, data){
     if(err) {
@@ -30,9 +30,25 @@ const createAndSavePerson = (done) => {
 //Test invocation
 //createAndSavePerson();
 
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+let arrayOfPets = [
+  {name: "Murzik", age: 8, favoriteFoods: ["fish", "viskas" ]},
+  {name: "Persik", age: 3, favoriteFoods: ["dry food", "milk" ]},
+  {name: "Vasya", age: 5, favoriteFoods: ["biscuit", "chicken" ]},
+];
+
+const createManyPeople = (arrayOfPets, done) => {
+ // console.log(Array.isArray(arrayOfPets));
+
+     Pet.insertMany(arrayOfPets, function(err, data){
+      if(err) {
+              return done(err);
+            }
+            console.log(data);
+            return done(null,data);
+     })
 };
+
+createManyPeople(arrayOfPets);
 
 const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
